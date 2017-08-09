@@ -1,5 +1,5 @@
 **Pinhead** is a simple Discord bot that pins messages to a specific channel. This is a
-workaround for Discord's per-channel 100 pin limit.
+workaround for Discord's per-channel 50 pin limit.
 
 # Installation
 
