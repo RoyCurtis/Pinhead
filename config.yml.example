@@ -1,0 +1,15 @@
+# Pinhead configuration file. Duplicate this file from `config.yml.example` to
+# `config.yml` and fill in the necessary values below.
+
+# Token for the bot user, from https://discordapp.com/developers/applications/me
+botToken: 'xxx'
+
+pinner:
+  # Name of the role who are allowed to pin messages. Leave blank to allow anybody.
+  role: pinner
+
+  # Name of the emoji to look for as a reaction, to messages that need pinning
+  emoji: superpin
+
+  # Name of the target channel to pin messages to
+  channel: memes

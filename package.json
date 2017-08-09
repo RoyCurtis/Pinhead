@@ -1,0 +1,23 @@
+{
+  "name": "pinhead",
+  "version": "0.0.1",
+  "description": "Discord bot for pinning messages to a separate channel, by way of reaction",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RoyCurtis/Pinhead.git"
+  },
+  "author": "Roy Curtis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RoyCurtis/Pinhead/issues"
+  },
+  "homepage": "https://github.com/RoyCurtis/Pinhead#readme",
+  "dependencies": {
+    "discord.js": "^11.1.0",
+    "js-yaml": "^3.9.1"
+  }
+}
