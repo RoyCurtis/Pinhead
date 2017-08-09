@@ -18,7 +18,7 @@ const client = new Discord.Client();
 
 /* Event handlers */
 
-// Handles initial connection to discord
+/** Caches messages upon connection to discord */
 function onReady()
 {
     console.log(`Logged in as ${client.user.tag}; caching all recent messages...`);
@@ -53,6 +53,7 @@ function onReady()
 }
 
 /**
+ * Handles reactions added to (almost) any message in channels
  *
  * @param {MessageReaction} react
  * @param {User} user
@@ -65,30 +66,22 @@ function onReaction(react, user)
 
     // Ignore if this happened in the target channel
     if ( channel.name.toLowerCase() === config.pinner.channel.toLowerCase() )
-    {
-        console.log(`Reaction happened in the target channel; ignoring`);
         return;
-    }
 
     // Ignore if it's not the superpin emoji
     if ( react.emoji.name.toLowerCase() !== config.pinner.emoji.toLowerCase() )
-    {
-        console.log(`${react.emoji.name} is not the reaction we want; ignoring`);
         return;
-    }
 
     // Ignore if this user is not permitted to pin
     if ( !Util.hasRole(user, guild, config.pinner.role) )
-    {
-        console.log(`${user.tag} not permitted to use superpin; ignoring`);
         return;
-    }
 
     // Finally, go ahead and pin it to the channel
     pinMessage(guild, message, user);
 }
 
 /**
+ * Handles the pinning of a message to the pin channel
  *
  * @param {Guild} guild
  * @param {Message} message
@@ -109,7 +102,7 @@ function pinMessage(guild, message, user)
         // Skip non-text channels
         if (!channel.send)
         {
-            console.error("Found channel, but it's not a text one!");
+            console.error(`Found channel "${channel.name}", but it's not a text one!`);
             continue;
         }
 
@@ -120,7 +113,7 @@ function pinMessage(guild, message, user)
     // Balk if target channel not found
     if (!found)
     {
-        console.error(`Can't pin message; can't find channel ${config.pinner.channel}`);
+        console.error(`Can't pin message; can't find channel #${config.pinner.channel}`);
         return;
     }
 
