@@ -36,7 +36,17 @@ function onReaction(react, user)
 
     // Ignore if this happened in the target channel
     if ( channel.name.toLowerCase() === config.pinner.channel.toLowerCase() )
+    {
+        console.debug(`Reaction happened in the target channel; ignoring`);
         return;
+    }
+
+    // Ignore if it's not the superpin emoji
+    if ( react.emoji.name.toLowerCase() !== config.pinner.emoji.toLowerCase() )
+    {
+        console.debug(`${react.emoji.name} is not the reaction we want; ignoring`);
+        return;
+    }
 
     // Ignore if this user is not permitted to pin
     if ( !Util.hasRole(user, message.guild, config.pinner.role) )
@@ -44,8 +54,6 @@ function onReaction(react, user)
         console.debug(`${user.tag} not permitted to use superpin; ignoring`);
         return;
     }
-    else
-        console.debug("Skipping role check due to blank role in config");
 }
 
 // Finally, attach handlers and begin operation
