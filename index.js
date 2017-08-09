@@ -27,6 +27,7 @@ function onReady()
      * For some very unfortunate reason(s), discord.js requires that messages be loaded
      * and cached, in order to catch `messageReactionAdd` events on them. Why it can't
      * simply be that Discord fires the event anyway or discord.js handle it, who knows...
+     * See https://github.com/hydrabolt/discord.js/issues/1675
      */
 
     /** @type {Guild} */
@@ -105,7 +106,8 @@ function pinMessage(guild, message, user)
         if (channel.name.toLowerCase() !== config.pinner.channel)
             continue;
 
-        if (!channel.sendEmbed)
+        // Skip non-text channels
+        if (!channel.send)
         {
             console.error("Found channel, but it's not a text one!");
             continue;
@@ -123,12 +125,14 @@ function pinMessage(guild, message, user)
     }
 
     // Finally, prepared the pinned message and pin it!
-    let embed = new Discord.RichEmbed({
-        author: user
-    }).addField("message", message.content, true);
+    let pinMessage = [
+        `${user} pinned a message by ${message.author}:`,
+        `---`,
+        `<**${message.createdAt.toLocaleString()}**> ${message.content}`
+    ];
 
-    channel.sendEmbed(embed)
-        .then(_ => console.log(`Pinned ${user.tag}'s message: ${message.content}`))
+    channel.send(pinMessage)
+        .then(_ => console.log(`Pinned ${user.tag}'s message: "${message.content}"`))
         .catch(console.error);
 }
 
