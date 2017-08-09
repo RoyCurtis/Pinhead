@@ -21,7 +21,34 @@ const client = new Discord.Client();
 // Handles initial connection to discord
 function onReady()
 {
-    console.log(`Logged in as ${client.user.tag}`);
+    console.log(`Logged in as ${client.user.tag}; caching all recent messages...`);
+
+    /*
+     * For some very unfortunate reason(s), discord.js requires that messages be loaded
+     * and cached, in order to catch `messageReactionAdd` events on them. Why it can't
+     * simply be that Discord fires the event anyway or discord.js handle it, who knows...
+     */
+
+    /** @type {Guild} */
+    let guild   = null;
+    /** @type {TextChannel|VoiceChannel} */
+    let channel = null;
+
+    for ( guild   of client.guilds.values() )
+    for ( channel of guild.channels.values() )
+    {
+        const channelName = channel.name;
+
+        // Skip non-text channels
+        if (!channel.fetchMessages) continue;
+
+        // Max limit is 100 messages...
+        channel.fetchMessages({limit: 100})
+            .then(messages => {
+                console.log(`Received ${messages.size} messages for #${channelName}`)
+            })
+            .catch(console.error);
+    }
 }
 
 /**
