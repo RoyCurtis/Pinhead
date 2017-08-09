@@ -37,21 +37,21 @@ function onReaction(react, user)
     // Ignore if this happened in the target channel
     if ( channel.name.toLowerCase() === config.pinner.channel.toLowerCase() )
     {
-        console.debug(`Reaction happened in the target channel; ignoring`);
+        console.log(`Reaction happened in the target channel; ignoring`);
         return;
     }
 
     // Ignore if it's not the superpin emoji
     if ( react.emoji.name.toLowerCase() !== config.pinner.emoji.toLowerCase() )
     {
-        console.debug(`${react.emoji.name} is not the reaction we want; ignoring`);
+        console.log(`${react.emoji.name} is not the reaction we want; ignoring`);
         return;
     }
 
     // Ignore if this user is not permitted to pin
-    if ( !Util.hasRole(user, message.guild, config.pinner.role) )
+    if ( !Util.hasRole(user, guild, config.pinner.role) )
     {
-        console.debug(`${user.tag} not permitted to use superpin; ignoring`);
+        console.log(`${user.tag} not permitted to use superpin; ignoring`);
         return;
     }
 }
