@@ -6,9 +6,9 @@
 /* Imports */
 const Meta    = require("./package.json");
 const Discord = require("discord.js");
-const YAML    = require('js-yaml');
 const FS      = require('fs');
-const Util    = require('util.js');
+const Util    = require('./util');
+const YAML    = require('js-yaml');
 
 /* Globals */
 console.log(`*** Starting Pinhead ${Meta.version} ***`);
