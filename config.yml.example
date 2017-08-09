@@ -2,6 +2,7 @@
 # `config.yml` and fill in the necessary values below.
 
 # Token for the bot user, from https://discordapp.com/developers/applications/me
+# Need to add bot? https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0
 botToken: 'xxx'
 
 pinner:
